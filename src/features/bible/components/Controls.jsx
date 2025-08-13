@@ -4,6 +4,7 @@ import Select from "../../../components/ui/Select";
 import Input from "../../../components/ui/Input";
 import Button from "../../../components/ui/Button";
 import Spinner from "../../../components/ui/Spinner";
+import { Search } from "lucide-react";
 
 export default function Controls({
   bibles, bibleId, setBibleId,
@@ -37,7 +38,14 @@ export default function Controls({
           theme={theme}
         />
         <Button onClick={doSearch} disabled={searching} theme={theme}>
-          {searching ? <Spinner /> : "Buscar"}
+          {searching ? (
+            <Spinner />
+          ) : (
+            <>
+              <Search className="w-4 h-4 mr-1" />
+              Buscar
+            </>
+          )}
         </Button>
       </div>
     </Card>
