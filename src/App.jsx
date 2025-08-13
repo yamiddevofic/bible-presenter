@@ -58,6 +58,8 @@ function AppInner() {
   }
 
   const slides = playlist.map(s => ({ ...s, _next: next, _prev: prev }));
+  const showingSearch = search.query.trim().length > 0;
+  const versesToShow = showingSearch ? search.results : verses;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors">
@@ -106,7 +108,12 @@ function AppInner() {
           </div>
 
           <div className="space-y-6">
-            <VersesList verses={verses} onAddVerse={addVerseToPlaylist} />
+            <VersesList
+              verses={versesToShow}
+              title={showingSearch ? "Resultados de búsqueda" : "Versículos"}
+              error={showingSearch ? search.error : null}
+              onAddVerse={addVerseToPlaylist}
+            />
             <PlaylistPanel
               playlist={playlist}
               currentIndex={currentIndex}

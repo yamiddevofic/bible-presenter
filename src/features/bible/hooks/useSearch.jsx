@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { searchPassages } from "../../../api/bible";
 
 export default function useSearch(bibleId) {
@@ -6,6 +6,13 @@ export default function useSearch(bibleId) {
   const [searching, setSearching] = useState(false);
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!query) {
+      setResults([]);
+      setError(null);
+    }
+  }, [query]);
 
   async function doSearch(e) {
     e?.preventDefault?.();
