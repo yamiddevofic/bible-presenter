@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../../../components/ui/Card";
 import Button from "../../../components/ui/Button";
+import { Hash } from "lucide-react";
 
 export default function VersesList({
   verses,
@@ -13,7 +14,8 @@ export default function VersesList({
   
   return (
     <Card className="p-6" theme={theme}>
-      <h3 className={`font-medium mb-3 ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
+      <h3 className={`font-medium mb-3 flex items-center gap-2 ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
+        <Hash className="w-4 h-4" />
         {title}
       </h3>
 

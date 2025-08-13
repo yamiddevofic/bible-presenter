@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../../components/ui/Card";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, List } from "lucide-react";
 
 export default function ChaptersList({ chapters, currentId, onSelect, theme = "light" }) {
   const [currentPage, setCurrentPage] = useState(0);
@@ -33,7 +33,10 @@ export default function ChaptersList({ chapters, currentId, onSelect, theme = "l
   return (
     <Card className="p-4" theme={theme}>
       <div className="flex items-center justify-between mb-2">
-        <h3 className={`font-medium ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>Capítulos</h3>
+        <h3 className={`font-medium flex items-center gap-2 ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
+          <List className="w-4 h-4" />
+          Capítulos
+        </h3>
         {totalPages > 1 && (
           <div className="flex items-center gap-2">
             <button
