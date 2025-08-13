@@ -40,8 +40,10 @@ function AppInner() {
     const slides = versesToShow.map((vi) => ({
       id: vi.id,
       reference: vi.reference,
+      text: vi.text || vi.content || "",
       html: `<p>${vi.text || vi.content || ""}</p>`,
     }));
+    
     dispatch({ type: "CLEAR" });
     dispatch({ type: "ADD_MANY", items: slides });
     setCurrentIndex(idx);
