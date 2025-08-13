@@ -12,9 +12,7 @@ import VersesGrid from "./features/bible/components/VersesGrid";
 import Button from "./components/ui/Button";
 
 function AppInner() {
-  const [langFilter, setLangFilter] = useState("spa");
-
-  const { bibles, bibleId, setBibleId } = useBibles(langFilter);
+  const { bibles, bibleId, setBibleId } = useBibles("spa");
   const { books, bookId, setBookId } = useBooks(bibleId);
   const { chapters, chapterId, setChapterId } = useChapters(bibleId, bookId);
   const { verses, loading, error } = useChapterContent(bibleId, chapterId);
