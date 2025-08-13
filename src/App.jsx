@@ -10,6 +10,7 @@ import useSearch from "./features/bible/hooks/useSearch";
 import Controls from "./features/bible/components/Controls";
 import ChaptersList from "./features/bible/components/ChaptersList";
 import VersesGrid from "./features/bible/components/VersesGrid";
+import PlaylistPanel from "./features/bible/components/PlaylistPanel";
 import Button from "./components/ui/Button";
 import { getVerseHtml } from "./features/bible/api/bible"; //
 
@@ -40,37 +41,30 @@ function AppInner() {
 
   const stripTags = (s = "") => s.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
-  async function handleSelectVerse(v, idx) {
-    // Crea los slides con contenido; si falta HTML, lo trae por verso
-    const slides = await Promise.all(
-      versesToShow.map(async (vi) => {
-        let html = "";
+  async function handleAddVerse(v) {
+    let html = "";
 
-        if (vi.text && vi.text.trim()) html = `<p>${vi.text}</p>`;
-        if (!html && vi.content && String(vi.content).trim()) html = String(vi.content);
+    if (v.text && v.text.trim()) html = `<p>${v.text}</p>`;
+    if (!html && v.content && String(v.content).trim()) html = String(v.content);
 
-        if (!html) {
-          try {
-            const r = await getVerseHtml(bibleId, vi.id);
-            html = r?.data?.content ?? r?.content ?? "";
-          } catch {
-            html = "";
-          }
-        }
+    if (!html) {
+      try {
+        const r = await getVerseHtml(bibleId, v.id);
+        html = r?.data?.content ?? r?.content ?? "";
+      } catch {
+        html = "";
+      }
+    }
 
-        return {
-          id: vi.id,
-          reference: vi.reference,
-          html,
-          text: vi.text ?? stripTags(html),
-        };
-      })
-    );
-
-    dispatch({ type: "CLEAR" });
-    dispatch({ type: "ADD_MANY", items: slides });
-    setCurrentIndex(idx);
-    setPresenting(true);
+    dispatch({
+      type: "ADD_ONE",
+      item: {
+        id: v.id,
+        reference: v.reference,
+        html,
+        text: v.text ?? stripTags(html),
+      },
+    });
   }
 
   return (
@@ -128,7 +122,7 @@ function AppInner() {
         </div>
 
         {bookId && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             <div className="md:col-span-3">
               {chapterId ? (
                 loading ? (
@@ -139,7 +133,7 @@ function AppInner() {
                   <VersesGrid
                     verses={versesToShow}
                     title={showingSearch ? "Resultados de búsqueda" : "Versículos"}
-                    onSelect={handleSelectVerse}
+                    onAdd={handleAddVerse}
                     theme={theme}
                   />
                 )
@@ -151,6 +145,20 @@ function AppInner() {
               chapters={chapters}
               currentId={chapterId}
               onSelect={setChapterId}
+              theme={theme}
+            />
+            <PlaylistPanel
+              playlist={playlist}
+              currentIndex={currentIndex}
+              setCurrentIndex={setCurrentIndex}
+              onStart={() => {
+                if (playlist.length > 0) {
+                  setCurrentIndex((i) => Math.min(i, playlist.length - 1));
+                  setPresenting(true);
+                }
+              }}
+              onClear={() => dispatch({ type: "CLEAR" })}
+              onRemove={(id) => dispatch({ type: "REMOVE", id })}
               theme={theme}
             />
           </div>
