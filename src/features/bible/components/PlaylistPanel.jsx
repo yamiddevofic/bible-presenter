@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../../../components/ui/Card";
 import Button from "../../../components/ui/Button";
+import { Play, Trash2, ArrowRight, X } from "lucide-react";
 
 export default function PlaylistPanel({
   playlist,
@@ -18,8 +19,12 @@ export default function PlaylistPanel({
       <div className="flex items-center justify-between mb-4">
         <h3 className={`font-medium ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>Playlist ({playlist.length})</h3>
         <div className="flex gap-2">
-          <Button size="sm" onClick={onStart} disabled={playlist.length === 0} theme={theme}>▶</Button>
-          <Button size="sm" variant="outline" onClick={onClear} theme={theme}>🗑</Button>
+          <Button size="sm" onClick={onStart} disabled={playlist.length === 0} theme={theme}>
+            <Play className="w-4 h-4" />
+          </Button>
+          <Button size="sm" variant="outline" onClick={onClear} theme={theme}>
+            <Trash2 className="w-4 h-4" />
+          </Button>
         </div>
       </div>
 
@@ -49,13 +54,13 @@ export default function PlaylistPanel({
                     onClick={() => setCurrentIndex(i)}
                     className={`text-xs px-2 py-1 rounded ${isDark ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}`}
                   >
-                    Ir
+                    <ArrowRight className="w-3 h-3" />
                   </button>
                   <button
                     onClick={() => onRemove(slide.id)}
                     className={`text-xs px-2 py-1 rounded text-red-600 ${isDark ? 'hover:bg-red-900/20' : 'hover:bg-red-50'}`}
                   >
-                    ×
+                    <X className="w-3 h-3" />
                   </button>
                 </div>
               </div>
