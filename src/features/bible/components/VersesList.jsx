@@ -58,6 +58,7 @@ export default function VersesList({
                   onClick={() => onAddVerse(verse)}
                   size="sm"
                   variant={isDark ? 'secondary' : 'primary'}
+                  theme={theme}
                 >
                   Agregar
                 </Button>

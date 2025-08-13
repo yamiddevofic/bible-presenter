@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import Card from "../../../components/ui/Card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function ChaptersList({ chapters, currentId, onSelect }) {
+export default function ChaptersList({ chapters, currentId, onSelect, theme = "light" }) {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 5;
-  
+  const isDark = theme === "dark";
+
   // Resetear a la primera página cuando cambian los capítulos
   useEffect(() => {
     setCurrentPage(0);
@@ -15,7 +16,7 @@ export default function ChaptersList({ chapters, currentId, onSelect }) {
 
   // Calcular el total de páginas
   const totalPages = Math.ceil(chapters.length / itemsPerPage);
-  
+
   // Obtener los capítulos de la página actual
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -30,26 +31,26 @@ export default function ChaptersList({ chapters, currentId, onSelect }) {
   };
 
   return (
-    <Card className="p-4">
+    <Card className="p-4" theme={theme}>
       <div className="flex items-center justify-between mb-2">
-        <h3 className="font-medium">Capítulos</h3>
+        <h3 className={`font-medium ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>Capítulos</h3>
         {totalPages > 1 && (
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrev}
               disabled={currentPage === 0}
-              className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-30"
+              className={`p-1 rounded-full disabled:opacity-30 ${isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
               aria-label="Página anterior"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="text-sm text-gray-500">
+            <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
               Página {currentPage + 1} de {totalPages}
             </span>
             <button
               onClick={handleNext}
               disabled={currentPage >= totalPages - 1}
-              className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-30"
+              className={`p-1 rounded-full disabled:opacity-30 ${isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
               aria-label="Página siguiente"
             >
               <ChevronRight className="w-4 h-4" />
@@ -57,7 +58,7 @@ export default function ChaptersList({ chapters, currentId, onSelect }) {
           </div>
         )}
       </div>
-      
+
       <div className="space-y-2">
         {currentChapters.map(ch => (
           <button
@@ -66,7 +67,9 @@ export default function ChaptersList({ chapters, currentId, onSelect }) {
             className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
               ch.id === currentId
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200'
+                : isDark
+                  ? 'bg-gray-800 hover:bg-gray-700 text-gray-200'
+                  : 'bg-gray-100 hover:bg-gray-200 text-gray-800'
             }`}
           >
             {ch.reference && (
