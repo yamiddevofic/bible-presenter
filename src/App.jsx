@@ -37,6 +37,20 @@ function AppInner() {
   const versesToShow = showingSearch ? search.results : verses;
 
   async function handleSelectVerse(v, idx) {
+    const bookName = books.find(b => b.id === bookId)?.name;
+    const chapterNum = chapterId?.split(".").pop();
+    const slides = versesToShow.map((vi, i) => {
+      let reference = vi.reference;
+      if (!reference && bookName && chapterNum) {
+        const verseNum = vi.number || vi.id?.split(".").pop() || i + 1;
+        reference = `${bookName} ${chapterNum}:${verseNum}`;
+      }
+      return {
+        id: vi.id,
+        reference,
+        html: vi.content || `<p>${vi.text || ""}</p>`
+      };
+    });
     const slides = versesToShow.map((vi) => ({
       id: vi.id,
       reference: vi.reference,
@@ -118,6 +132,7 @@ function AppInner() {
                 <p className="text-sm text-gray-600 dark:text-gray-400">Selecciona un capítulo</p>
               )}
             </div>
+
             <ChaptersList
               chapters={chapters}
               currentId={chapterId}
