@@ -10,7 +10,9 @@ export const getChapterHtml = (bibleId, chapterId) =>
   api(`/bibles/${bibleId}/chapters/${chapterId}`, { "content-type": "html" });
 
 export const getChapterVerses = (bibleId, chapterId) =>
-  api(`/bibles/${bibleId}/chapters/${chapterId}/verses`);
+  api(`/bibles/${bibleId}/chapters/${chapterId}/verses`, {
+    "content-type": "html",
+  });
 
 export const getVerseHtml = (bibleId, verseId) =>
   api(`/bibles/${bibleId}/verses/${verseId}`, { "content-type": "html" });
