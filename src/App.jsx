@@ -18,17 +18,29 @@ function AppInner() {
   const { verses, loading, error } = useChapterContent(bibleId, chapterId);
   const search = useSearch(bibleId);
 
-  const { playlist, dispatch, presenting, setPresenting, currentIndex, setCurrentIndex,
-          theme, setTheme, showRef, setShowRef, next, prev } = usePlaylist();
+  const {
+    playlist,
+    dispatch,
+    presenting,
+    setPresenting,
+    currentIndex,
+    setCurrentIndex,
+    theme,
+    setTheme,
+    showRef,
+    setShowRef,
+    next,
+    prev,
+  } = usePlaylist();
 
   const showingSearch = search.query.trim().length > 0;
   const versesToShow = showingSearch ? search.results : verses;
 
   async function handleSelectVerse(v, idx) {
-    const slides = versesToShow.map(vi => ({
+    const slides = versesToShow.map((vi) => ({
       id: vi.id,
       reference: vi.reference,
-      html: `<p>${vi.text || vi.content || ""}</p>`
+      html: `<p>${vi.text || vi.content || ""}</p>`,
     }));
     dispatch({ type: "CLEAR" });
     dispatch({ type: "ADD_MANY", items: slides });
@@ -40,24 +52,49 @@ function AppInner() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors">
       <div className="max-w-7xl mx-auto px-4 py-6">
         <header className="text-center mb-8">
-          <h1 className="text-3xl font-light tracking-tight text-gray-900 dark:text-white mb-2">Bible Presenter</h1>
-          <p className="text-gray-600 dark:text-gray-400 font-light">Presentaciones modernas para iglesias</p>
+          <h1 className="text-3xl font-light tracking-tight text-gray-900 dark:text-white mb-2">
+            Bible Presenter
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 font-light">
+            Presentaciones modernas para iglesias
+          </p>
         </header>
 
         <Controls
-          bibles={bibles} bibleId={bibleId} setBibleId={setBibleId}
-          books={books} bookId={bookId} setBookId={setBookId}
+          bibles={bibles}
+          bibleId={bibleId}
+          setBibleId={setBibleId}
+          books={books}
+          bookId={bookId}
+          setBookId={setBookId}
           search={search}
         />
 
         <div className="flex items-center justify-end gap-4 mb-6">
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-600 dark:text-gray-400">Tema:</span>
-            <Button variant={theme === "dark" ? "primary" : "outline"} size="sm" onClick={() => setTheme("dark")}>Oscuro</Button>
-            <Button variant={theme === "light" ? "primary" : "outline"} size="sm" onClick={() => setTheme("light")}>Claro</Button>
+            <Button
+              variant={theme === "dark" ? "primary" : "outline"}
+              size="sm"
+              onClick={() => setTheme("dark")}
+            >
+              Oscuro
+            </Button>
+            <Button
+              variant={theme === "light" ? "primary" : "outline"}
+              size="sm"
+              onClick={() => setTheme("light")}
+            >
+              Claro
+            </Button>
           </div>
           <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-            <input type="checkbox" checked={showRef} onChange={(e) => setShowRef(e.target.checked)} className="rounded border-gray-300 dark:border-gray-600" />
+            <input
+              type="checkbox"
+              checked={showRef}
+              onChange={(e) => setShowRef(e.target.checked)}
+              className="rounded border-gray-300 dark:border-gray-600"
+            />
             Mostrar referencia
           </label>
         </div>
@@ -81,7 +118,11 @@ function AppInner() {
                 <p className="text-sm text-gray-600 dark:text-gray-400">Selecciona un capítulo</p>
               )}
             </div>
-            <ChaptersList chapters={chapters} currentId={chapterId} onSelect={setChapterId} />
+            <ChaptersList
+              chapters={chapters}
+              currentId={chapterId}
+              onSelect={setChapterId}
+            />
           </div>
         )}
 
@@ -93,7 +134,7 @@ function AppInner() {
       <Presenter
         open={presenting}
         onClose={() => setPresenting(false)}
-        slides={playlist.map(s => ({ ...s, _next: next, _prev: prev }))}
+        slides={playlist.map((s) => ({ ...s, _next: next, _prev: prev }))}
         index={currentIndex}
         theme={theme}
         showRef={showRef}
