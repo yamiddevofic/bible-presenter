@@ -12,6 +12,7 @@ import ChaptersList from "./features/bible/components/ChaptersList";
 import VersesGrid from "./features/bible/components/VersesGrid";
 import PlaylistPanel from "./features/bible/components/PlaylistPanel";
 import Button from "./components/ui/Button";
+import { BookOpen } from "lucide-react";
 import { getVerseHtml } from "./features/bible/api/bible"; //
 
 function AppInner() {
@@ -71,7 +72,12 @@ function AppInner() {
     <div className={`min-h-screen ${theme === "dark" ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900"}`}>
       <div className="max-w-7xl mx-auto px-4 py-6">
         <header className="text-center mb-8">
-          <h1 className={`text-3xl font-light tracking-tight mb-2 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+          <h1
+            className={`text-3xl font-light tracking-tight mb-2 flex items-center justify-center gap-2 ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}
+          >
+            <BookOpen className="w-8 h-8" />
             Bible Presenter
           </h1>
           <p className={`font-light ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>

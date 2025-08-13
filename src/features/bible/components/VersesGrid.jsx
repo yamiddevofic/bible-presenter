@@ -1,13 +1,15 @@
 // features/bible/components/VersesGrid.jsx
 import React from "react";
 import Card from "../../../components/ui/Card";
+import { Hash } from "lucide-react";
 
 export default function VersesGrid({ verses, onAdd, title = "Versículos", theme = "light" }) {
   const isDark = theme === "dark";
 
   return (
     <Card className="p-4 h-[calc(100vh-8rem)]" theme={theme}>
-      <h3 className={`font-medium mb-2 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
+      <h3 className={`font-medium mb-2 flex items-center gap-2 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
+        <Hash className="w-4 h-4" />
         {title}
       </h3>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 h-[calc(100vh-13rem)] overflow-y-auto">
