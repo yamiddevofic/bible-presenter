@@ -15,7 +15,7 @@ import { getVerseHtml } from "./api/bible";
 
 function AppInner() {
   const [langFilter, setLangFilter] = useState("spa");
-
+1
   const { bibles, bibleId, setBibleId } = useBibles(langFilter);
   const { books, bookId, setBookId } = useBooks(bibleId);
   const { chapters, chapterId, setChapterId } = useChapters(bibleId, bookId);
