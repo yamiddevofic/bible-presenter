@@ -7,12 +7,12 @@ export default function VersesGrid({ verses, onAdd, title = "Versículos", theme
   const isDark = theme === "dark";
 
   return (
-    <Card className="p-4 h-[calc(100vh-8rem)]" theme={theme}>
+    <Card className="p-4 h-auto" theme={theme}>
       <h3 className={`font-medium mb-2 flex items-center gap-2 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
         <Hash className="w-4 h-4" />
         {title}
       </h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 h-[calc(100vh-13rem)] overflow-y-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 h-auto overflow-y-auto ">
         {verses.map((v, idx) => (
           <button
             key={v.id || idx}

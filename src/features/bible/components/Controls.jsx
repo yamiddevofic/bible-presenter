@@ -37,7 +37,7 @@ export default function Controls({
           onKeyDown={(e) => e.key === 'Enter' && doSearch(e)}
           theme={theme}
         />
-        <Button onClick={doSearch} disabled={searching} theme={theme}>
+        <Button onClick={doSearch} disabled={searching} theme={theme} className="flex items-center gap-2 cursor-pointer">
           {searching ? (
             <Spinner />
           ) : (

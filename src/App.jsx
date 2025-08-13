@@ -69,7 +69,7 @@ function AppInner() {
   }
 
   return (
-    <div className={`min-h-screen ${theme === "dark" ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900"}`}>
+    <div className={`min-h-screen grid grid-cols-1 ${theme === "dark" ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900 grid"}`}>
       <div className="max-w-7xl mx-auto px-4 py-6">
         <header className="text-center mb-8">
           <h1
@@ -128,7 +128,7 @@ function AppInner() {
         </div>
 
         {bookId && (
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 order-3 md:order-2">
             <div className="md:col-span-3">
               {chapterId ? (
                 loading ? (
@@ -147,6 +147,7 @@ function AppInner() {
                 <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Selecciona un capítulo</p>
               )}
             </div>
+            <div className="md:col-span-2 flex flex-col gap-4 order-2 md:order-3">
             <ChaptersList
               chapters={chapters}
               currentId={chapterId}
@@ -167,6 +168,7 @@ function AppInner() {
               onRemove={(id) => dispatch({ type: "REMOVE", id })}
               theme={theme}
             />
+            </div>
           </div>
         )}
 
