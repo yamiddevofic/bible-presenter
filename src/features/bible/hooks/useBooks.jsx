@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getBooks } from "../../../api/bible";
+import { getBooks } from "../api/bible";
 
 export default function useBooks(bibleId) {
   const [books, setBooks] = useState([]);

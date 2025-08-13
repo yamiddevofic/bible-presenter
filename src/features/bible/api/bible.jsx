@@ -1,8 +1,10 @@
-import React from "react";
+// features/bible/api.js
 import { api } from "./client";
 
 export const getBibles = () => api("/bibles");
+
 export const getBooks = (bibleId) => api(`/bibles/${bibleId}/books`);
+
 export const getChapters = (bibleId, bookId) =>
   api(`/bibles/${bibleId}/books/${bookId}/chapters`);
 

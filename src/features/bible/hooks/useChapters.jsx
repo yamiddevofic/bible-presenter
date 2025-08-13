@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getChapters } from "../../../api/bible";
+import { getChapters } from "../api/bible";
 
 export default function useChapters(bibleId, bookId) {
   const [chapters, setChapters] = useState([]);

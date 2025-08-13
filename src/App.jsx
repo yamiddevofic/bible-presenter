@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// App.jsx
+import React from "react";
 import Presenter from "./components/presenter/Presenter";
 import { PlaylistProvider, usePlaylist } from "./store/PlaylistContext";
 import useBibles from "./features/bible/hooks/useBibles";
@@ -10,6 +11,7 @@ import Controls from "./features/bible/components/Controls";
 import ChaptersList from "./features/bible/components/ChaptersList";
 import VersesGrid from "./features/bible/components/VersesGrid";
 import Button from "./components/ui/Button";
+import { getVerseHtml } from "./features/bible/api/bible"; // 
 
 function AppInner() {
   const { bibles, bibleId, setBibleId } = useBibles("spa");
@@ -36,14 +38,35 @@ function AppInner() {
   const showingSearch = search.query.trim().length > 0;
   const versesToShow = showingSearch ? search.results : verses;
 
+  const stripTags = (s = "") => s.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+
   async function handleSelectVerse(v, idx) {
-    const slides = versesToShow.map((vi) => ({
-      id: vi.id,
-      reference: vi.reference,
-      text: vi.text || vi.content || "",
-      html: `<p>${vi.text || vi.content || ""}</p>`,
-    }));
-    
+    // Crea los slides con contenido; si falta HTML, lo trae por verso
+    const slides = await Promise.all(
+      versesToShow.map(async (vi) => {
+        let html = "";
+
+        if (vi.text && vi.text.trim()) html = `<p>${vi.text}</p>`;
+        if (!html && vi.content && String(vi.content).trim()) html = String(vi.content);
+
+        if (!html) {
+          try {
+            const r = await getVerseHtml(bibleId, vi.id);
+            html = r?.data?.content ?? r?.content ?? "";
+          } catch {
+            html = "";
+          }
+        }
+
+        return {
+          id: vi.id,
+          reference: vi.reference,
+          html,
+          text: vi.text ?? stripTags(html),
+        };
+      })
+    );
+
     dispatch({ type: "CLEAR" });
     dispatch({ type: "ADD_MANY", items: slides });
     setCurrentIndex(idx);
@@ -51,7 +74,7 @@ function AppInner() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors">
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-950 text-white' : 'bg-gray-50 text-gray-900'}`}>
       <div className="max-w-7xl mx-auto px-4 py-6">
         <header className="text-center mb-8">
           <h1 className="text-3xl font-light tracking-tight text-gray-900 dark:text-white mb-2">
@@ -70,6 +93,7 @@ function AppInner() {
           bookId={bookId}
           setBookId={setBookId}
           search={search}
+          theme={theme}
         />
 
         <div className="flex items-center justify-end gap-4 mb-6">
@@ -114,6 +138,7 @@ function AppInner() {
                     verses={versesToShow}
                     title={showingSearch ? "Resultados de búsqueda" : "Versículos"}
                     onSelect={handleSelectVerse}
+                    theme={theme}
                   />
                 )
               ) : (
@@ -124,6 +149,7 @@ function AppInner() {
               chapters={chapters}
               currentId={chapterId}
               onSelect={setChapterId}
+              theme={theme}
             />
           </div>
         )}

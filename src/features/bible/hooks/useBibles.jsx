@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { getBibles } from "../../../api/bible";
+import { getBibles } from "../api/bible";
 
 export default function useBibles(langFilter = "spa") {
   const [bibles, setBibles] = useState([]);

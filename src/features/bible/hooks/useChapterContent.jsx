@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getChapterHtml, getChapterVerses } from "../../../api/bible";
+import { getChapterHtml, getChapterVerses } from "../api/bible";
 
 export default function useChapterContent(bibleId, chapterId) {
   const [chapterHtml, setChapterHtml] = useState("");

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { searchPassages } from "../../../api/bible";
+import { searchPassages } from "../api/bible";
 
 export default function useSearch(bibleId) {
   const [query, setQuery] = useState("");
