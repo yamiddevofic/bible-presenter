@@ -41,11 +41,20 @@ export default function Presenter({ open, onClose, slides, index, theme, showRef
   const hasText = typeof slide.text === "string" && slide.text.trim() !== "";
 
   return (
-    <div ref={ref} className="fixed inset-0 z-50 bg-black">
+    <div ref={ref} className="fixed inset-0 z-50">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/church.svg')" }}
+      />
+      <div
+        className={`absolute inset-0 ${
+          theme === "light" ? "bg-white/80" : "bg-black/80"
+        }`}
+      />
       <div id="blackout" className="hidden absolute inset-0 bg-black" />
       <div
-        className={`h-full w-full flex flex-col items-center justify-center px-12 py-8 ${
-          theme === "light" ? "bg-white text-black" : "bg-black text-white"
+        className={`relative h-full w-full flex flex-col items-center justify-center px-12 py-8 ${
+          theme === "light" ? "text-black" : "text-white"
         }`}
       >
         <div className="max-w-6xl w-full text-center">

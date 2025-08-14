@@ -39,6 +39,7 @@ function AppInner() {
 
   const showingSearch = search.query.trim().length > 0;
   const versesToShow = showingSearch ? search.results : verses;
+  const isSearchReference = showingSearch && search.isReference;
 
   const stripTags = (s = "") => s.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
@@ -170,6 +171,7 @@ function AppInner() {
                     title={showingSearch ? "Resultados de búsqueda" : "Versículos"}
                     onAdd={handleAddVerse}
                     theme={theme}
+                    isReference={isSearchReference}
                   />
                 )
               ) : (
