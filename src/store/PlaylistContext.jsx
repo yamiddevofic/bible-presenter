@@ -4,11 +4,21 @@ const Ctx = createContext(null);
 
 function reducer(state, action) {
   switch (action.type) {
-    case "ADD_MANY": return [...state, ...action.items];
-    case "ADD_ONE":  return [...state, action.item];
-    case "REMOVE":   return state.filter(s => s.id !== action.id);
-    case "CLEAR":    return [];
-    default:         return state;
+    case "ADD_MANY": {
+      const existing = new Set(state.map(s => s.id));
+      const items = action.items.filter(item => !existing.has(item.id));
+      return items.length ? [...state, ...items] : state;
+    }
+    case "ADD_ONE": {
+      if (state.some(s => s.id === action.item.id)) return state;
+      return [...state, action.item];
+    }
+    case "REMOVE":
+      return state.filter(s => s.id !== action.id);
+    case "CLEAR":
+      return [];
+    default:
+      return state;
   }
 }
 

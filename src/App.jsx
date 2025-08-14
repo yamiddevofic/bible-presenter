@@ -43,29 +43,58 @@ function AppInner() {
   const stripTags = (s = "") => s.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
   async function handleAddVerse(v) {
-    let html = "";
+    const parseIds = (verse) => {
+      if (Array.isArray(verse?.verseIds)) return verse.verseIds;
+      const base = String(verse?.id || "");
+      const parts = base.split(",").filter(Boolean);
+      const ids = [];
+      const expand = (token) => {
+        if (!token.includes("-")) return [token];
+        const [s, e] = token.split("-");
+        const [book, chap, startVerse] = s.split(".");
+        const endVerse = parseInt(e.split(".")[2], 10);
+        const start = parseInt(startVerse, 10);
+        for (let i = start; i <= endVerse; i++) ids.push(`${book}.${chap}.${i}`);
+        return [];
+      };
+      parts.forEach(p => ids.push(...expand(p)));
+      return ids.length ? ids : [base];
+    };
 
-    if (v.text && v.text.trim()) html = `<p>${v.text}</p>`;
-    if (!html && v.content && String(v.content).trim()) html = String(v.content);
+    const ids = parseIds(v);
+    const items = [];
 
-    if (!html) {
-      try {
-        const r = await getVerseHtml(bibleId, v.id);
-        html = r?.data?.content ?? r?.content ?? "";
-      } catch {
-        html = "";
+    for (const id of ids) {
+      if (playlist.some(p => p.id === id)) continue;
+      let html = "";
+      let reference = v.reference;
+
+      if (ids.length === 1) {
+        if (v.text && v.text.trim()) html = `<p>${v.text}</p>`;
+        if (!html && v.content && String(v.content).trim()) html = String(v.content);
       }
+
+      if (!html) {
+        try {
+          const r = await getVerseHtml(bibleId, id);
+          html = r?.data?.content ?? r?.content ?? "";
+          reference = r?.data?.reference ?? reference;
+        } catch {
+          html = "";
+        }
+      }
+
+      items.push({
+        id,
+        reference,
+        html,
+        text: stripTags(html),
+      });
     }
 
-    dispatch({
-      type: "ADD_ONE",
-      item: {
-        id: v.id,
-        reference: v.reference,
-        html,
-        text: v.text ?? stripTags(html),
-      },
-    });
+    if (items.length === 0) return;
+    if (items.length === 1) dispatch({ type: "ADD_ONE", item: items[0] });
+    else dispatch({ type: "ADD_MANY", items });
   }
 
   return (
