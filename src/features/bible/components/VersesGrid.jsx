@@ -3,8 +3,9 @@ import React from "react";
 import Card from "../../../components/ui/Card";
 import { Hash } from "lucide-react";
 
-export default function VersesGrid({ verses, onAdd, title = "Versículos", theme = "light" }) {
+export default function VersesGrid({ verses, onAdd, title = "Versículos", theme = "light", isReference = false }) {
   const isDark = theme === "dark";
+  const cols = isReference ? "grid-cols-1" : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4";
 
   return (
     <Card className="p-4 h-auto" theme={theme}>
@@ -12,7 +13,7 @@ export default function VersesGrid({ verses, onAdd, title = "Versículos", theme
         <Hash className="w-4 h-4" />
         {title}
       </h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 h-auto overflow-y-auto ">
+      <div className={`grid ${cols} gap-2 h-auto overflow-y-auto`}>
         {verses.map((v, idx) => (
           <button
             key={v.id || idx}
