@@ -84,7 +84,25 @@ function AppInner() {
             Presentaciones modernas para iglesias
           </p>
         </header>
-
+        <div className="flex items-center justify-end gap-2 mb-6">
+          <span className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Tema:</span>
+          <Button
+            variant={theme === "dark" ? "primary" : "outline"}
+            size="sm"
+            onClick={() => setTheme("dark")}
+            theme={theme}
+          >
+            Oscuro
+          </Button>
+          <Button
+            variant={theme === "light" ? "primary" : "outline"}
+            size="sm"
+            onClick={() => setTheme("light")}
+            theme={theme}
+          >
+            Claro
+          </Button>
+        </div>
         <Controls
           bibles={bibles}
           bibleId={bibleId}
@@ -97,25 +115,6 @@ function AppInner() {
         />
 
         <div className="flex items-center justify-end gap-4 mb-6">
-          <div className="flex items-center gap-2">
-            <span className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Tema:</span>
-            <Button
-              variant={theme === "dark" ? "primary" : "outline"}
-              size="sm"
-              onClick={() => setTheme("dark")}
-              theme={theme}
-            >
-              Oscuro
-            </Button>
-            <Button
-              variant={theme === "light" ? "primary" : "outline"}
-              size="sm"
-              onClick={() => setTheme("light")}
-              theme={theme}
-            >
-              Claro
-            </Button>
-          </div>
           <label className={`flex items-center gap-2 text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
             <input
               type="checkbox"
@@ -126,7 +125,6 @@ function AppInner() {
             Mostrar referencia
           </label>
         </div>
-
         {bookId && (
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6 order-3 md:order-2">
             <div className="md:col-span-3">
