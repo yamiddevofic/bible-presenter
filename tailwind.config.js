@@ -6,6 +6,13 @@ export default {
   ],
   theme: {
     extend: {
+        colors: {
+            'icc-purple': '#483473',
+            'icc-blue': '#0367A6',
+            'icc-yellow': '#F2B705',
+            'icc-orange': '#F29F05',
+            'icc-red': '#D92929',
+        },
         backdropBlur: {
             xs: '2px',
         },

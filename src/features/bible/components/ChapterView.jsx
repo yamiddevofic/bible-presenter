@@ -12,7 +12,7 @@ export default function ChapterView({ title, chapterHtml, onAddChapter, loading,
         {loading && (
           <div className={`flex items-center gap-2 text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
             <span>Cargando…</span>
-            <div className="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full" />
+            <div className="animate-spin h-4 w-4 border-2 border-icc-blue border-t-transparent rounded-full" />
           </div>
         )}
       </div>
@@ -20,8 +20,8 @@ export default function ChapterView({ title, chapterHtml, onAddChapter, loading,
       {error && (
         <div className={`mb-4 p-3 rounded-lg text-sm border ${
           isDark
-            ? 'bg-red-900/20 border-red-800 text-red-300'
-            : 'bg-red-50 border-red-200 text-red-700'
+            ? 'bg-icc-red/20 border-icc-red text-icc-red'
+            : 'bg-icc-red/10 border-icc-red/50 text-icc-red'
         }`}>
           {error}
         </div>
