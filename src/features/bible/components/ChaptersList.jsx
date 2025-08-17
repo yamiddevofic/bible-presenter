@@ -69,7 +69,7 @@ export default function ChaptersList({ chapters, currentId, onSelect, theme = "l
             onClick={() => onSelect(ch.id)}
             className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
               ch.id === currentId
-                ? 'bg-blue-600 text-white'
+                ? 'bg-icc-blue text-white'
                 : isDark
                   ? 'bg-gray-800 hover:bg-gray-700 text-gray-200'
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-800'

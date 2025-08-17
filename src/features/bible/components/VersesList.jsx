@@ -21,9 +21,9 @@ export default function VersesList({
 
       {error && (
         <div className={`mb-4 p-3 rounded-lg text-sm ${
-          isDark 
-            ? 'bg-red-900/20 border-red-800 text-red-300' 
-            : 'bg-red-50 border-red-200 text-red-700'
+          isDark
+            ? 'bg-icc-red/20 border-icc-red text-icc-red'
+            : 'bg-icc-red/10 border-icc-red/50 text-icc-red'
         } border`}>
           {error}
         </div>
@@ -44,7 +44,7 @@ export default function VersesList({
             >
               <div className="mr-2 flex-1">
                 <span className={`text-sm font-medium ${
-                  isDark ? 'text-blue-400' : 'text-blue-600'
+                  isDark ? 'text-icc-blue' : 'text-icc-blue'
                 }`}>
                   {verse.reference}
                 </span>

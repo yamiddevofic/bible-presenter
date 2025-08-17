@@ -40,15 +40,15 @@ export default function PlaylistPanel({
               className={`p-3 rounded-lg border transition-colors ${
                 i === currentIndex
                   ? isDark
-                    ? 'border-blue-500 bg-blue-900/20'
-                    : 'border-blue-500 bg-blue-50'
+                    ? 'border-icc-blue bg-icc-blue/20'
+                    : 'border-icc-blue bg-icc-blue/10'
                   : isDark
                     ? 'border-gray-700 hover:bg-gray-800'
                     : 'border-gray-200 hover:bg-gray-50'
-              }`}
+            }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className={`text-xs font-medium ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>{slide.reference}</span>
+                <span className={`text-xs font-medium ${isDark ? 'text-icc-blue' : 'text-icc-blue'}`}>{slide.reference}</span>
                 <div className="flex gap-1">
                   <button
                     onClick={() => setCurrentIndex(i)}
@@ -58,7 +58,7 @@ export default function PlaylistPanel({
                   </button>
                   <button
                     onClick={() => onRemove(slide.id)}
-                    className={`text-xs px-2 py-1 rounded text-red-600 ${isDark ? 'hover:bg-red-900/20' : 'hover:bg-red-50'}`}
+                    className={`text-xs px-2 py-1 rounded text-icc-red ${isDark ? 'hover:bg-icc-red/20' : 'hover:bg-icc-red/10'}`}
                   >
                     <X className="w-3 h-3" />
                   </button>

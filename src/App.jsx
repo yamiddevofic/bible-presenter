@@ -99,28 +99,26 @@ function AppInner() {
   }
 
   return (
-    <div className={`min-h-screen grid grid-cols-1 ${theme === "dark" ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900 grid"}`}>
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <header className="text-center mb-8">
-          <h1
-            className={`text-3xl font-light tracking-tight mb-2 flex items-center justify-center gap-2 ${
-              theme === "dark" ? "text-white" : "text-gray-900"
-            }`}
-          >
-            <BookOpen className="w-8 h-8" />
-            Bible Presenter
-          </h1>
-          <p className={`font-light ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-            Presentaciones modernas para iglesias
-          </p>
-        </header>
-        <div className="flex items-center justify-end gap-2 mb-6">
-          <span className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Tema:</span>
-          <Button
-            variant={theme === "dark" ? "primary" : "outline"}
-            size="sm"
-            onClick={() => setTheme("dark")}
-            theme={theme}
+      <div className={`min-h-screen grid grid-cols-1 ${theme === "dark" ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900 grid"}`}>
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <header className="text-center mb-8">
+            <h1
+              className="text-3xl font-light tracking-tight mb-2 flex items-center justify-center gap-2 text-icc-purple"
+            >
+              <BookOpen className="w-8 h-8 text-icc-orange" />
+              Bible Presenter
+            </h1>
+            <p className="font-light text-icc-orange">
+              Presentaciones modernas para iglesias
+            </p>
+          </header>
+          <div className="flex items-center justify-end gap-2 mb-6">
+            <span className="text-sm text-icc-yellow">Tema:</span>
+            <Button
+              variant={theme === "dark" ? "primary" : "outline"}
+              size="sm"
+              onClick={() => setTheme("dark")}
+              theme={theme}
           >
             Oscuro
           </Button>
@@ -144,17 +142,17 @@ function AppInner() {
           theme={theme}
         />
 
-        <div className="flex items-center justify-end gap-4 mb-6">
-          <label className={`flex items-center gap-2 text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-            <input
-              type="checkbox"
-              checked={showRef}
-              onChange={(e) => setShowRef(e.target.checked)}
-              className={`rounded ${theme === "dark" ? "border-gray-600" : "border-gray-300"}`}
-            />
-            Mostrar referencia
-          </label>
-        </div>
+          <div className="flex items-center justify-end gap-4 mb-6">
+            <label className="flex items-center gap-2 text-sm text-icc-orange">
+              <input
+                type="checkbox"
+                checked={showRef}
+                onChange={(e) => setShowRef(e.target.checked)}
+                className={`rounded ${theme === "dark" ? "border-gray-600" : "border-gray-300"}`}
+              />
+              Mostrar referencia
+            </label>
+          </div>
         {bookId && (
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6 order-3 md:order-2">
             <div className="md:col-span-3">
@@ -162,7 +160,7 @@ function AppInner() {
                 loading ? (
                   <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Cargando...</p>
                 ) : error ? (
-                  <p className={`text-sm ${theme === "dark" ? "text-red-400" : "text-red-600"}`}>{error}</p>
+                    <p className={`text-sm ${theme === "dark" ? "text-icc-red" : "text-icc-red"}`}>{error}</p>
                 ) : (
                   <VersesGrid
                     verses={versesToShow}

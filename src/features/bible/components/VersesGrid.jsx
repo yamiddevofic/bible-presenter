@@ -20,11 +20,11 @@ export default function VersesGrid({ verses, onAdd, title = "Versículos", theme
             onClick={() => onAdd && onAdd(v, idx)}
             className={`p-2 text-left rounded-lg border transition-colors duration-150 ${
               isDark
-                ? 'bg-gray-800 border-gray-700 hover:bg-blue-900 text-gray-200'
-                : 'bg-white border-gray-200 hover:bg-blue-50 text-gray-800 shadow-sm hover:shadow-md'
+                ? 'bg-gray-800 border-gray-700 hover:bg-icc-blue/30 text-gray-200'
+                : 'bg-white border-gray-200 hover:bg-icc-blue/10 text-gray-800 shadow-sm hover:shadow-md'
             }`}
           >
-            <span className={`block font-medium ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
+            <span className={`block font-medium ${isDark ? 'text-icc-blue' : 'text-icc-blue'}`}>
               {v.reference}
             </span>
             {(v.text || v.content) && (
