@@ -44,7 +44,7 @@ export default function Presenter({ open, onClose, slides, index, theme, showRef
     <div ref={ref} className="fixed inset-0 z-50">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/church.svg')" }}
+        style={{ backgroundImage: "url('/icc.png')" }}
       />
       {!showImage && (
         <>
