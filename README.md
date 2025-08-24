@@ -7,10 +7,7 @@ Bible Presenter es una aplicación web moderna y minimalista diseñada para proy
 
 ## 🚀 Características  
 - **Interfaz moderna y minimalista** con modo oscuro y claro.  
-- **Selección rápida** de idioma, versión, libro, capítulo y rango de versículos.  
-- **Compatibilidad con múltiples traducciones** (ej. RVR1960).  
 - **Visualización optimizada** para proyectores y pantallas grandes.  
-- **Función de playlist** para organizar versículos a presentar.  
 - **Búsqueda por referencia** (ej. “Génesis 1:1-5”).  
 - **Vista limpia y legible** para la congregación, enfocada en el mensaje.  
 
