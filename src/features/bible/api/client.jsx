@@ -2,8 +2,7 @@ import React from "react";
 
 const API_BASE = "https://api.scripture.api.bible/v1";
 const API_KEY =
-  (typeof process !== "undefined" && process.env?.VITE_API_BIBLE_KEY) ||
-  "0142214e0b636f91032b1cb7530b88cd"; // demo
+  (typeof process !== "undefined" && process.env?.VITE_API_BIBLE_KEY)
 
 export async function api(path, params = {}) {
   const url = new URL(API_BASE + path);
@@ -19,3 +18,4 @@ export async function api(path, params = {}) {
   }
   return res.json();
 }
+ 
