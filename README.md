@@ -37,7 +37,7 @@ npm install
 ### 3) Configurar variables de entorno  
 Crea un archivo `.env` en la raíz del proyecto:  
 ```env
-VITE_API_KEY=tu_api_key_de_apibible
+VITE_API_BIBLE_KEY=tu_api_key_de_apibible
 ```
 Puedes obtener una API Key en https://scripture.api.bible
 
