@@ -7,10 +7,7 @@ Bible Presenter es una aplicación web moderna y minimalista diseñada para proy
 
 ## 🚀 Características  
 - **Interfaz moderna y minimalista** con modo oscuro y claro.  
-- **Selección rápida** de idioma, versión, libro, capítulo y rango de versículos.  
-- **Compatibilidad con múltiples traducciones** (ej. RVR1960).  
 - **Visualización optimizada** para proyectores y pantallas grandes.  
-- **Función de playlist** para organizar versículos a presentar.  
 - **Búsqueda por referencia** (ej. “Génesis 1:1-5”).  
 - **Vista limpia y legible** para la congregación, enfocada en el mensaje.  
 
@@ -33,12 +30,12 @@ Para adquirir una licencia y recibir acceso al instalador, comuníquese con:
 
 ## 💼 Licencia de uso (Propietaria)  
 
-**© 2025 Yamid Dev. Todos los derechos reservados.**  
+**MIT License**
 
-Este software es de uso exclusivo para clientes con licencia vigente.  
-Queda prohibido:  
-- Copiar, modificar o redistribuir el software.  
-- Usar el software sin una licencia válida.  
-- Descompilar o realizar ingeniería inversa.  
+Copyright (c) 2025 Yamid Dev
 
-El uso no autorizado puede derivar en acciones legales según la legislación aplicable.  
+Se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de este software y de los archivos de documentación asociados, para usar el Software sin restricción, incluyendo sin limitación los derechos a usar, copiar, modificar, fusionar, publicar, distribuir, sublicenciar y/o vender copias del Software, y a permitir a las personas a quienes se les proporcione el Software a hacerlo, sujeto a las siguientes condiciones:
+
+El aviso de copyright anterior y este aviso de permiso deberán ser incluidos en todas las copias o partes sustanciales del Software.
+
+EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A GARANTÍAS DE COMERCIABILIDAD, IDONEIDAD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO LOS AUTORES O TITULARES DEL COPYRIGHT SERÁN RESPONSABLES POR CUALQUIER RECLAMO, DAÑO O OTRA RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO, AGRAVIO O CUALQUIER OTRA FORMA, DERIVADOS DE O EN CONEXIÓN CON EL SOFTWARE O EL USO U OTROS TRATOS EN EL SOFTWARE.
