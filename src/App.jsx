@@ -1,5 +1,6 @@
 // App.jsx
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { createRoot } from "react-dom/client";
 import Presenter from "./components/presenter/Presenter";
 import { PlaylistProvider, usePlaylist } from "./store/PlaylistContext";
 import useBibles from "./features/bible/hooks/useBibles";
@@ -40,6 +41,52 @@ function AppInner() {
   const showingSearch = search.query.trim().length > 0;
   const versesToShow = showingSearch ? search.results : verses;
   const isSearchReference = showingSearch && search.isReference;
+
+  const presenterRef = useRef(null);
+
+  useEffect(() => {
+    if (!presenting) return;
+    const win = window.open("", "_blank", "noopener,noreferrer");
+    if (!win) return;
+    win.document.title = "Bible Presenter";
+    const el = win.document.createElement("div");
+    win.document.body.appendChild(el);
+    const root = createRoot(el);
+    const close = () => {
+      root.unmount();
+      win.close();
+      setPresenting(false);
+      presenterRef.current = null;
+    };
+    presenterRef.current = { win, root, close };
+    root.render(
+      <Presenter
+        open
+        onClose={close}
+        slides={playlist.map((s) => ({ ...s, _next: next, _prev: prev }))}
+        index={currentIndex}
+        theme={theme}
+        showRef={showRef}
+      />
+    );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presenting]);
+
+  useEffect(() => {
+    if (!presenterRef.current) return;
+    const { root, close } = presenterRef.current;
+    root.render(
+      <Presenter
+        open
+        onClose={close}
+        slides={playlist.map((s) => ({ ...s, _next: next, _prev: prev }))}
+        index={currentIndex}
+        theme={theme}
+        showRef={showRef}
+      />
+    );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playlist, currentIndex, theme, showRef]);
 
   const stripTags = (s = "") => s.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
@@ -204,14 +251,6 @@ function AppInner() {
         </footer>
       </div>
 
-      <Presenter
-        open={presenting}
-        onClose={() => setPresenting(false)}
-        slides={playlist.map((s) => ({ ...s, _next: next, _prev: prev }))}
-        index={currentIndex}
-        theme={theme}
-        showRef={showRef}
-      />
     </div>
   );
 }
