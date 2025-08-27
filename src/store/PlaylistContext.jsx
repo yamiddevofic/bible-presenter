@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useMemo, useReducer, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useMemo,
+  useReducer,
+  useState,
+  useCallback,
+} from "react";
 
 const Ctx = createContext(null);
 
@@ -29,21 +36,36 @@ export function PlaylistProvider({ children }) {
   const [theme, setTheme] = useState("dark");
   const [showRef, setShowRef] = useState(true);
 
-  const next = () => setCurrentIndex(i => Math.min(i + 1, playlist.length - 1));
-  const prev = () => setCurrentIndex(i => Math.max(i - 1, 0));
+  const next = useCallback(
+    () => setCurrentIndex((i) => Math.min(i + 1, playlist.length - 1)),
+    [playlist.length]
+  );
+  const prev = useCallback(
+    () => setCurrentIndex((i) => Math.max(i - 1, 0)),
+    []
+  );
 
-  const value = useMemo(() => ({
-    playlist, dispatch,
-    presenting, setPresenting,
-    currentIndex, setCurrentIndex,
-    theme, setTheme,
-    showRef, setShowRef,
-    next, prev
-  }), [playlist, presenting, currentIndex, theme, showRef]);
+  const value = useMemo(
+    () => ({
+      playlist,
+      dispatch,
+      presenting,
+      setPresenting,
+      currentIndex,
+      setCurrentIndex,
+      theme,
+      setTheme,
+      showRef,
+      setShowRef,
+      next,
+      prev,
+    }),
+    [playlist, presenting, currentIndex, theme, showRef, next, prev]
+  );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
-
+// eslint-disable-next-line react-refresh/only-export-components
 export const usePlaylist = () => {
   const ctx = useContext(Ctx);
   if (!ctx) throw new Error("usePlaylist must be used within PlaylistProvider");
