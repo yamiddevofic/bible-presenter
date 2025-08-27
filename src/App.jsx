@@ -49,6 +49,13 @@ function AppInner() {
     const win = window.open("", "_blank", "noopener,noreferrer");
     if (!win) return;
     win.document.title = "Bible Presenter";
+
+    // Copy styles from the main document so Tailwind classes render correctly
+    const styleNodes = document.head.querySelectorAll("style,link[rel='stylesheet']");
+    styleNodes.forEach((node) => {
+      win.document.head.appendChild(node.cloneNode(true));
+    });
+
     const el = win.document.createElement("div");
     win.document.body.appendChild(el);
     const root = createRoot(el);
@@ -67,6 +74,7 @@ function AppInner() {
         index={currentIndex}
         theme={theme}
         showRef={showRef}
+        targetWindow={win}
       />
     );
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,7 +82,7 @@ function AppInner() {
 
   useEffect(() => {
     if (!presenterRef.current) return;
-    const { root, close } = presenterRef.current;
+    const { root, close, win } = presenterRef.current;
     root.render(
       <Presenter
         open
@@ -83,6 +91,7 @@ function AppInner() {
         index={currentIndex}
         theme={theme}
         showRef={showRef}
+        targetWindow={win}
       />
     );
   // eslint-disable-next-line react-hooks/exhaustive-deps
