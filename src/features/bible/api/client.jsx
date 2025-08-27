@@ -1,8 +1,7 @@
 import React from "react";
 
 const API_BASE = "https://api.scripture.api.bible/v1";
-const API_KEY =
-  (typeof process !== "undefined" && process.env?.VITE_API_BIBLE_KEY)
+const API_KEY = import.meta.env.VITE_API_BIBLE_KEY;
 
 export async function api(path, params = {}) {
   const url = new URL(API_BASE + path);
