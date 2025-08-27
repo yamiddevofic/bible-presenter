@@ -1,27 +1,40 @@
 // components/presenter/Presenter.jsx
 import React, { useEffect, useRef, useState } from "react";
 
-export default function Presenter({ open, onClose, slides, index, theme, showRef }) {
+// Allow rendering inside a different window (e.g. presenter tab)
+export default function Presenter({
+  open,
+  onClose,
+  slides,
+  index,
+  theme,
+  showRef,
+  targetWindow = window,
+}) {
   const ref = useRef(null);
   const [showImage, setShowImage] = useState(false);
 
+  // Request fullscreen on the element inside the target window
   useEffect(() => {
     if (!open) return;
     const el = ref.current;
-    if (el && !document.fullscreenElement) {
+    const doc = targetWindow.document;
+    if (el && doc && !doc.fullscreenElement) {
       el.requestFullscreen?.().catch(() => {});
     }
-  }, [open]);
+  }, [open, targetWindow]);
 
+  // Keyboard navigation should listen on the presenter window
   useEffect(() => {
     const onKey = (e) => {
       if (!open) return;
+      const doc = targetWindow.document;
       if (["ArrowRight", "PageDown", "Space"].includes(e.key)) {
         e.preventDefault();
-        document.getElementById("nextSlide")?.click();
+        doc.getElementById("nextSlide")?.click();
       } else if (["ArrowLeft", "PageUp"].includes(e.key)) {
         e.preventDefault();
-        document.getElementById("prevSlide")?.click();
+        doc.getElementById("prevSlide")?.click();
       } else if (e.key.toLowerCase() === "b") {
         e.preventDefault();
         setShowImage((prev) => !prev);
@@ -30,9 +43,9 @@ export default function Presenter({ open, onClose, slides, index, theme, showRef
         onClose();
       }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+    targetWindow.addEventListener("keydown", onKey);
+    return () => targetWindow.removeEventListener("keydown", onKey);
+  }, [open, onClose, targetWindow]);
 
   if (!open) return null;
 

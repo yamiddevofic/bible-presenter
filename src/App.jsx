@@ -46,11 +46,26 @@ function AppInner() {
 
   useEffect(() => {
     if (!presenting) return;
-    const win = window.open("", "_blank", "noopener,noreferrer");
+    const win = window.open("", "_blank", "noopener");
     if (!win) return;
-    win.document.title = "Bible Presenter";
-    const el = win.document.createElement("div");
-    win.document.body.appendChild(el);
+
+    const doc = win.document;
+    doc.title = "Bible Presenter";
+
+    // Copy styles from the main document so Tailwind classes render correctly.
+    // Use importNode to avoid cross-document DOM exceptions.
+    const styleNodes = document.head.querySelectorAll("style,link[rel='stylesheet']");
+    styleNodes.forEach((node) => {
+      try {
+        doc.head.appendChild(doc.importNode(node, true));
+      } catch {
+        // Fallback to cloning if importNode is not supported
+        doc.head.appendChild(node.cloneNode(true));
+      }
+    });
+
+    const el = doc.createElement("div");
+    doc.body.appendChild(el);
     const root = createRoot(el);
     const close = () => {
       root.unmount();
@@ -67,6 +82,7 @@ function AppInner() {
         index={currentIndex}
         theme={theme}
         showRef={showRef}
+        targetWindow={win}
       />
     );
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,7 +90,7 @@ function AppInner() {
 
   useEffect(() => {
     if (!presenterRef.current) return;
-    const { root, close } = presenterRef.current;
+    const { root, close, win } = presenterRef.current;
     root.render(
       <Presenter
         open
@@ -83,6 +99,7 @@ function AppInner() {
         index={currentIndex}
         theme={theme}
         showRef={showRef}
+        targetWindow={win}
       />
     );
   // eslint-disable-next-line react-hooks/exhaustive-deps
