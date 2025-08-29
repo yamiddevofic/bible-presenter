@@ -44,6 +44,7 @@ export default function ChaptersList({ chapters, currentId, onSelect, theme = "l
               disabled={currentPage === 0}
               className={`p-1 rounded-full disabled:opacity-30 ${isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
               aria-label="Página anterior"
+
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -69,7 +70,7 @@ export default function ChaptersList({ chapters, currentId, onSelect, theme = "l
             onClick={() => onSelect(ch.id)}
             className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
               ch.id === currentId
-                ? 'bg-icc-blue text-white'
+                ? isDark ? 'bg-gray-600 text-white' : 'bg-gray-300 text-gray-800'
                 : isDark
                   ? 'bg-gray-800 hover:bg-gray-700 text-gray-200'
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-800'

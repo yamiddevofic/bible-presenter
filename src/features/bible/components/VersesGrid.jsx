@@ -20,8 +20,8 @@ export default function VersesGrid({ verses, onAdd, title = "Versículos", theme
             onClick={() => onAdd && onAdd(v, idx)}
             className={`p-2 text-left rounded-lg border transition-colors duration-150 ${
               isDark
-                ? 'bg-gray-800 border-gray-700 hover:bg-icc-blue/30 text-gray-200'
-                : 'bg-white border-gray-200 hover:bg-icc-blue/10 text-gray-800 shadow-sm hover:shadow-md'
+                ? 'bg-gray-800 border-gray-700 hover:bg-gray-600 text-gray-200'
+                : 'bg-white border-gray-200 hover:bg-gray-300 text-gray-800 shadow-sm hover:shadow-md'
             }`}
           >
             <span className={`block font-medium ${isDark ? 'text-icc-blue' : 'text-icc-blue'}`}>

@@ -12,7 +12,7 @@ import ChaptersList from "./features/bible/components/ChaptersList";
 import VersesGrid from "./features/bible/components/VersesGrid";
 import PlaylistPanel from "./features/bible/components/PlaylistPanel";
 import Button from "./components/ui/Button";
-import { BookOpen } from "lucide-react";
+import { BookOpen, MoonIcon, SunIcon } from "lucide-react";
 import { getVerseHtml } from "./features/bible/api/bible"; //
 
 function AppInner() {
@@ -114,21 +114,13 @@ function AppInner() {
           </header>
           <div className="flex items-center justify-end gap-2 mb-6">
             <span className="text-sm text-icc-yellow">Tema:</span>
-            <Button
-              variant={theme === "dark" ? "primary" : "outline"}
-              size="sm"
-              onClick={() => setTheme("dark")}
-              theme={theme}
-          >
-            Oscuro
-          </Button>
           <Button
-            variant={theme === "light" ? "primary" : "outline"}
+            className={theme === "dark" ? "bg-gray-200 !text-black" : "bg-gray-950 !text-white"}
             size="sm"
-            onClick={() => setTheme("light")}
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             theme={theme}
           >
-            Claro
+            {theme === "dark" ? <SunIcon className="w-4 h-4"/> : <MoonIcon className="w-4 h-4"/>}
           </Button>
         </div>
         <Controls
